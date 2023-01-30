@@ -1,7 +1,7 @@
 <script setup>
-import VueApexCharts from 'vue3-apexcharts'
-import { useTheme } from 'vuetify'
-import { hexToRgb } from '@layouts/utils'
+import { hexToRgb } from '@layouts/utils';
+import VueApexCharts from 'vue3-apexcharts';
+import { useTheme } from 'vuetify';
 
 const vuetifyTheme = useTheme()
 
@@ -69,7 +69,7 @@ const chartOptions = computed(() => {
             show: true,
             value: {
               fontSize: '1.375rem',
-              fontFamily: 'Public Sans',
+              fontFamily: 'Prompt',
               color: headingColor,
               fontWeight: 600,
               offsetY: -15,
@@ -79,7 +79,7 @@ const chartOptions = computed(() => {
             },
             name: {
               offsetY: 20,
-              fontFamily: 'Public Sans',
+              fontFamily: 'Prompt',
             },
             total: {
               show: true,
@@ -87,7 +87,7 @@ const chartOptions = computed(() => {
               color: currentTheme.success,
               fontSize: '.8125rem',
               label: 'Total',
-              fontFamily: 'Public Sans',
+              fontFamily: 'Prompt',
               formatter() {
                 return '184'
               },

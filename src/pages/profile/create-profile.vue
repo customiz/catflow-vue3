@@ -1,7 +1,6 @@
 <script setup>
 import authV1BottomShape from '@images/svg/auth-v1-bottom-shape.svg'
 import authV1TopShape from '@images/svg/auth-v1-top-shape.svg'
-import AuthProvider from '@/views/pages/authentication/AuthProvider.vue'
 import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
 import { themeConfig } from '@themeConfig'
 
@@ -49,10 +48,10 @@ const isPasswordVisible = ref(false)
 
         <VCardText class="pt-2">
           <h5 class="text-h5 font-weight-semibold mb-1">
-            Adventure starts here 🚀
+            ยินดีด้วยเราได้สร้างบริษัทให้คุณเรียบร้อยแล้ว 🚀
           </h5>
           <p class="mb-0">
-            Make your app management easy and fun!
+            เพื่อการใช้งานที่ครบถ้วนสมบูรณ์ กรุณาให้ข้อมูลเพิ่มเติม
           </p>
         </VCardText>
 
@@ -60,87 +59,46 @@ const isPasswordVisible = ref(false)
           <VForm @submit.prevent="() => {}">
             <VRow>
               <!-- Username -->
-              <VCol cols="12">
+              <VCol cols="6">
                 <VTextField
-                  v-model="form.username"
-                  label="Username"
+                  v-model="form.name"
+                  label="ชื่อ*"
+                />
+              </VCol>
+              <VCol cols="6">
+                <VTextField
+                  v-model="form.surname"
+                  label="นามสกุล*"
                 />
               </VCol>
               <!-- email -->
               <VCol cols="12">
                 <VTextField
-                  v-model="form.email"
-                  label="Email"
-                  type="email"
+                  v-model="form.phone"
+                  label="หมายเลขโทรศัพท์*"
+                  type="number"
                 />
               </VCol>
+              <VCol cols="12">
+                <VTextField
+                  v-model="form.business_name"
+                  label="ชื่อธุรกิจ*"
+                />
+              </VCol>
+              
 
               <!-- password -->
               <VCol cols="12">
-                <VTextField
-                  v-model="form.password"
-                  label="Password"
-                  :type="isPasswordVisible ? 'text' : 'password'"
-                  :append-inner-icon="isPasswordVisible ? 'tabler-eye-off' : 'tabler-eye'"
-                  @click:append-inner="isPasswordVisible = !isPasswordVisible"
-                />
-
-                <div class="d-flex align-center mt-2 mb-4">
-                  <VCheckbox
-                    id="privacy-policy"
-                    v-model="form.privacyPolicies"
-                    inline
-                  />
-                  <VLabel
-                    for="privacy-policy"
-                    style="opacity: 1;"
-                  >
-                    <span class="me-1">I agree to</span>
-                    <a
-                      href="javascript:void(0)"
-                      class="text-primary"
-                    >privacy policy & terms</a>
-                  </VLabel>
-                </div>
-
+                
                 <VBtn
                   block
                   type="submit"
                 >
-                  Sign up
+                 เริ่มต้นใช้งาน
                 </VBtn>
               </VCol>
 
-              <!-- login instead -->
-              <VCol
-                cols="12"
-                class="text-center text-base"
-              >
-                <span>Already have an account?</span>
-                <RouterLink
-                  class="text-primary ms-2"
-                  :to="{ name: 'pages-authentication-login-v1' }"
-                >
-                  Sign in instead
-                </RouterLink>
-              </VCol>
-
-              <VCol
-                cols="12"
-                class="d-flex align-center"
-              >
-                <VDivider />
-                <span class="mx-4">or</span>
-                <VDivider />
-              </VCol>
-
-              <!-- auth providers -->
-              <VCol
-                cols="12"
-                class="text-center"
-              >
-                <AuthProvider />
-              </VCol>
+             
             </VRow>
           </VForm>
         </VCardText>

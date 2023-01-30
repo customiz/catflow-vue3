@@ -1,7 +1,7 @@
 <script setup>
-import VueApexCharts from 'vue3-apexcharts'
-import { useTheme } from 'vuetify'
-import { hexToRgb } from '@layouts/utils'
+import { hexToRgb } from '@layouts/utils';
+import VueApexCharts from 'vue3-apexcharts';
+import { useTheme } from 'vuetify';
 
 const vuetifyTheme = useTheme()
 
@@ -73,7 +73,7 @@ const chartOptions = computed(() => {
         style: {
           colors: `rgba(${ hexToRgb(currentTheme['on-surface']) },${ variableTheme['disabled-opacity'] })`,
           fontSize: '14px',
-          fontFamily: 'Public Sans',
+          fontFamily: 'Prompt',
         },
       },
     },

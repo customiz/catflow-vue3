@@ -1,4 +1,4 @@
-import axios from '@axios'
+import axios from '@axios';
 
 export const useCalendarStore = defineStore('calendar', {
   // arrow function recommended for full type inference
@@ -32,7 +32,14 @@ export const useCalendarStore = defineStore('calendar', {
       return axios.get('/apps/calendar/events', { params: { calendars: this.selectedCalendars.join(',') } })
     },
     async addEvent(event) {
-      return axios.post('/apps/calendar/events', { event })
+      returnaxios
+      .post("http://localhost:1337/api/trips", event.value)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
     },
     async updateEvent(event) {
       return axios.post(`/apps/calendar/events/${event.id}`, { event })

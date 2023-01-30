@@ -1,7 +1,7 @@
 <script setup>
-import VueApexCharts from 'vue3-apexcharts'
-import { useTheme } from 'vuetify'
-import { hexToRgb } from '@layouts/utils'
+import { hexToRgb } from '@layouts/utils';
+import VueApexCharts from 'vue3-apexcharts';
+import { useTheme } from 'vuetify';
 
 const vuetifyTheme = useTheme()
 const series = [85]
@@ -29,14 +29,14 @@ const chartOptions = computed(() => {
             color: `rgba(${ hexToRgb(currentTheme['on-background']) },${ variableTheme['disabled-opacity'] })`,
             fontSize: '14px',
             fontWeight: '400',
-            fontFamily: 'Public Sans',
+            fontFamily: 'Prompt',
           },
           value: {
             offsetY: 10,
             color: `rgba(${ hexToRgb(currentTheme['on-background']) },${ variableTheme['high-emphasis-opacity'] })`,
             fontSize: '38px',
             fontWeight: '600',
-            fontFamily: 'Public Sans',
+            fontFamily: 'Prompt',
           },
         },
       },

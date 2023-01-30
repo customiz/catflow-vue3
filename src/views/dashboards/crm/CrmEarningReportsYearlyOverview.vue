@@ -1,7 +1,7 @@
 <script setup>
-import VueApexCharts from 'vue3-apexcharts'
-import { useTheme } from 'vuetify'
-import { hexToRgb } from '@layouts/utils'
+import { hexToRgb } from '@layouts/utils';
+import VueApexCharts from 'vue3-apexcharts';
+import { useTheme } from 'vuetify';
 
 const vuetifyTheme = useTheme()
 const currentTab = ref(0)
@@ -64,7 +64,7 @@ const chartConfigs = computed(() => {
             fontSize: '15px',
             colors: [legendColor],
             fontWeight: '600',
-            fontFamily: 'Public Sans',
+            fontFamily: 'Prompt',
           },
         },
         legend: { show: false },
@@ -90,7 +90,7 @@ const chartConfigs = computed(() => {
             style: {
               colors: labelColor,
               fontSize: '14px',
-              fontFamily: 'Public Sans',
+              fontFamily: 'Prompt',
             },
           },
         },
@@ -103,7 +103,7 @@ const chartConfigs = computed(() => {
             style: {
               fontSize: '14px',
               colors: labelColor,
-              fontFamily: 'Public Sans',
+              fontFamily: 'Prompt',
             },
             min: 0,
             max: 60000,
@@ -198,7 +198,7 @@ const chartConfigs = computed(() => {
             fontSize: '15px',
             colors: [legendColor],
             fontWeight: '600',
-            fontFamily: 'Public Sans',
+            fontFamily: 'Prompt',
           },
         },
         legend: { show: false },
@@ -224,7 +224,7 @@ const chartConfigs = computed(() => {
             style: {
               colors: labelColor,
               fontSize: '14px',
-              fontFamily: 'Public Sans',
+              fontFamily: 'Prompt',
             },
           },
         },
@@ -237,7 +237,7 @@ const chartConfigs = computed(() => {
             style: {
               fontSize: '14px',
               colors: labelColor,
-              fontFamily: 'Public Sans',
+              fontFamily: 'Prompt',
             },
             min: 0,
             max: 60000,
@@ -327,7 +327,7 @@ const chartConfigs = computed(() => {
             fontSize: '15px',
             colors: [legendColor],
             fontWeight: '600',
-            fontFamily: 'Public Sans',
+            fontFamily: 'Prompt',
           },
         },
         legend: { show: false },
@@ -353,7 +353,7 @@ const chartConfigs = computed(() => {
             style: {
               colors: labelColor,
               fontSize: '14px',
-              fontFamily: 'Public Sans',
+              fontFamily: 'Prompt',
             },
           },
         },
@@ -366,7 +366,7 @@ const chartConfigs = computed(() => {
             style: {
               fontSize: '14px',
               colors: labelColor,
-              fontFamily: 'Public Sans',
+              fontFamily: 'Prompt',
             },
             min: 0,
             max: 60000,
@@ -456,7 +456,7 @@ const chartConfigs = computed(() => {
             fontSize: '15px',
             colors: [legendColor],
             fontWeight: '600',
-            fontFamily: 'Public Sans',
+            fontFamily: 'Prompt',
           },
         },
         legend: { show: false },
@@ -482,7 +482,7 @@ const chartConfigs = computed(() => {
             style: {
               colors: labelColor,
               fontSize: '14px',
-              fontFamily: 'Public Sans',
+              fontFamily: 'Prompt',
             },
           },
         },
@@ -495,7 +495,7 @@ const chartConfigs = computed(() => {
             style: {
               fontSize: '14px',
               colors: labelColor,
-              fontFamily: 'Public Sans',
+              fontFamily: 'Prompt',
             },
             min: 0,
             max: 60000,

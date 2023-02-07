@@ -6,7 +6,9 @@
           <VForm>
             <VRow class="pa-5">
               <VCol cols="12">
-                <h2 class="text-lg font-medium mb-5">ข้อมูลทริป</h2>
+                <h2 class="text-lg font-medium mb-5">
+                  ข้อมูลทริป
+                </h2>
                 <VRow>
                   <VCol cols="12">
                     <VTextField label="โปรแกรม" />
@@ -40,7 +42,9 @@
             <VDivider />
             <VRow class="mx-5">
               <VCol cols="12">
-                <h2 class="text-lg font-medium mb-5">ข้อมูลโรงแรม</h2>
+                <h2 class="text-lg font-medium mb-5">
+                  ข้อมูลโรงแรม
+                </h2>
                 <VRow
                   v-for="(hotel, index) in hotels"
                   :key="index"
@@ -72,14 +76,21 @@
                     </VRow>
                     <VRow>
                       <VCol cols="12">
-                        <VTextarea label="ไกด์" rows="3" />
+                        <VTextarea
+                          label="ไกด์"
+                          rows="3"
+                        />
                       </VCol>
                     </VRow>
                   </VCol>
                 </VRow>
                 <VRow class="ml-0 mb-3">
                   <VCol>
-                    <VBtn class="text-center" color="primary" @click="addHotel">
+                    <VBtn
+                      class="text-center"
+                      color="primary"
+                      @click="addHotel"
+                    >
                       add Hotel
                     </VBtn>
                   </VCol>
@@ -89,7 +100,9 @@
             <VDivider />
             <VRow class="mx-5">
               <VCol cols="12">
-                <h2 class="text-lg font-medium my-5">ข้อมูลลูกค้า</h2>
+                <h2 class="text-lg font-medium my-5">
+                  ข้อมูลลูกค้า
+                </h2>
                 <VRow
                   v-for="(customer, index) in customers"
                   :key="index"
@@ -109,8 +122,7 @@
                       </VCol>
                     </VRow>
                     <VRow>
-                      <VCol cols="2">
-                      </VCol>
+                      <VCol cols="2" />
                       <VCol cols="10">
                         <VTextField label="ชื่อภาษาอังกฤษ" />
                       </VCol>
@@ -153,7 +165,10 @@
                     </VRow>
                     <VRow>
                       <VCol cols="12">
-                        <VTextarea label="หมายเหตุ" rows="3" />
+                        <VTextarea
+                          label="หมายเหตุ"
+                          rows="3"
+                        />
                       </VCol>
                     </VRow>
                   </VCol>
@@ -171,9 +186,17 @@
                 </VRow>
               </VCol>
             </VRow>
-            <VRow class="ma-3 text-center" justify="center">
+            <VRow
+              class="ma-3 text-center"
+              justify="center"
+            >
               <VCol>
-                <VBtn class="mt-5 text-center" color="primary"> Submit </VBtn>
+                <VBtn
+                  class="mt-5 text-center"
+                  color="primary"
+                >
+                  Submit
+                </VBtn>
               </VCol>
             </VRow>
           </VForm>
@@ -194,18 +217,18 @@ export default {
       enNameTypes: ["Mr", "Miss","Mrs","Ms"],
       customers: [{}],
       hotels: [{}],
-    };
+    }
   },
   // eslint-disable-next-line vue/component-api-style
   methods: {
     addCustomer() {
-      this.customers.push({});
+      this.customers.push({})
     },
     addHotel() {
-      this.hotels.push({});
+      this.hotels.push({})
     },
   },
-};
+}
 </script>
 
 <style scoped>

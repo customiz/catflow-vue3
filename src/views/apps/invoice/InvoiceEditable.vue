@@ -1,8 +1,8 @@
 <script setup>
-import InvoiceProductEdit from './InvoiceProductEdit.vue'
-import { useInvoiceStore } from './useInvoiceStore'
-import { VNodeRenderer } from '@layouts/components/VNodeRenderer'
-import { themeConfig } from '@themeConfig'
+import { VNodeRenderer } from '@layouts/components/VNodeRenderer';
+import { themeConfig } from '@themeConfig';
+import InvoiceProductEdit from './InvoiceProductEdit.vue';
+import { useInvoiceStore } from './useInvoiceStore';
 
 const props = defineProps({
   data: {

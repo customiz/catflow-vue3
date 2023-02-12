@@ -1,3 +1,4 @@
+import CustomerTrip from '@/pages/trips/form-customer.vue'
 import ShowTrips from '@/pages/trips/show-trips.vue'
 import { canNavigate } from '@layouts/plugins/casl'
 import { setupLayouts } from 'virtual:generated-layouts'
@@ -6,7 +7,8 @@ import routes from '~pages'
 import { isUserLoggedIn } from './utils'
 
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
+  history: createWebHistory(
+    import.meta.env.BASE_URL),
   routes: [
     // ℹ️ We are redirecting to different pages based on role.
     // NOTE: Role is just for UI purposes. ACL is based on abilities.
@@ -19,7 +21,7 @@ const router = createRouter({
           return { name: 'dashboards-analytics' }
         if (userRole === 'client')
           return { name: 'access-control' }
-        
+
         return { name: 'login', query: to.query }
       },
     },
@@ -34,7 +36,13 @@ const router = createRouter({
     {
       path: '/trips/show-trips/:id',
       name: 'ShowTrips',
-      component:ShowTrips,
+      component: ShowTrips,
+    },
+
+    {
+      path: '/trips/form-customer/:id',
+      name: 'CustomerTrip',
+      component: CustomerTrip,
     },
     ...setupLayouts(routes),
   ],
@@ -47,30 +55,29 @@ router.beforeEach(to => {
 
   /*
   
-    ℹ️ Commented code is legacy code
+                                  ℹ️ Commented code is legacy code
   
-    if (!canNavigate(to)) {
-      // Redirect to login if not logged in
-      // ℹ️ Only add `to` query param if `to` route is not index route
-      if (!isLoggedIn)
-        return next({ name: 'login', query: { to: to.name !== 'index' ? to.fullPath : undefined } })
+                                  if (!canNavigate(to)) {
+                                    // Redirect to login if not logged in
+                                    // ℹ️ Only add `to` query param if `to` route is not index route
+                                    if (!isLoggedIn)
+                                      return next({ name: 'login', query: { to: to.name !== 'index' ? to.fullPath : undefined } })
   
-      // If logged in => not authorized
-      return next({ name: 'not-authorized' })
-    }
+                                    // If logged in => not authorized
+                                    return next({ name: 'not-authorized' })
+                                  }
   
-    // Redirect if logged in
-    if (to.meta.redirectIfLoggedIn && isLoggedIn)
-      next('/')
+                                  // Redirect if logged in
+                                  if (to.meta.redirectIfLoggedIn && isLoggedIn)
+                                    next('/')
   
-    return next()
+                                  return next()
   
-    */
+                                  */
   if (canNavigate(to)) {
     if (to.meta.redirectIfLoggedIn && isLoggedIn)
       return '/'
-  }
-  else {
+  } else {
     if (isLoggedIn)
       return { name: 'not-authorized' }
     else

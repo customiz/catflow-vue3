@@ -1,201 +1,153 @@
+<script>
+export default {
+  // eslint-disable-next-line vue/component-api-style
+  data() {
+    return {
+      trip_name: "",
+      start_date: "",
+      end_date: "",
+      outbound_flight:"",
+      inbound_flight:"",
+      guide_name: "",
+      hotel:"",
+    }
+  },
+  // eslint-disable-next-line vue/component-api-style
+  methods: {
+    async createTrip() {
+      try {
+        const response = await fetch(
+          "http://strapiapi.catflows.com/api/trips",
+          {
+            method: "POST",
+
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+
+              // Authorization: Bearer ${localStorage.getItem("jwt")},
+            },
+            body: JSON.stringify({
+              data:{
+                trip_name: this.trip_name,
+                start_date:this.start_date,
+                end_date:this.end_date,
+                guide_name:this.guide_name,
+                outbound_flight:this.outbound_flight,
+                inbound_flight:this.inbound_flight,
+                hotel:this.hotel,
+              },
+            
+            }),
+          },
+        ).then(response => response.json())
+          .then(data => {
+            console.info("trip data : ", data)
+            console.debug(data)
+
+            const id = data.id
+
+            this.$router.push({ name: 'CustomerTrip', params: { id } })
+          })
+
+      } catch (error) {
+        console.error(error)
+      }
+    },
+
+  },
+}
+</script>
+
 <template>
   <section>
     <VRow>
       <VCol cols="12">
-        <VCard title="ฟอร์มสร้างทริป">
-          <VForm>
+        <VCard>
+          <VForm @submit.prevent="createTrip">
             <VRow class="pa-5">
               <VCol cols="12">
-                <h2 class="text-lg font-medium mb-5">
+                <h2 class="text-lg font-medium mb-5 text-center">
                   ข้อมูลทริป
                 </h2>
                 <VRow>
                   <VCol cols="12">
-                    <VTextField label="โปรแกรม" />
+                    <VTextField
+                      v-model="trip_name"
+                      label="โปรแกรม"
+                      required
+                    />
+                  </VCol>
+                </VRow>
+                <VRow>
+                  <VCol cols="6">
+                    <AppDateTimePicker
+                      v-model="start_date"
+                      density="compact"
+                      label="วันเริ่มทริป"
+                      style="width: 100%;"
+                      :config="{ position: 'auto right' }"
+                      required
+                    />
+                  </VCol>
+                  <VCol cols="6">
+                    <AppDateTimePicker
+                      v-model="end_date"
+                      density="compact"
+                      label="วันจบทริป"
+                      style="width: 100%;"
+                      :config="{ position: 'auto right' }"
+                      required
+                    />
+                  </VCol>
+                </VRow>
+                <VRow>
+                  <VCol cols="6">
+                    <VTextField
+                      v-model="outbound_flight"
+                      label="เที่ยวบินขาไป"
+                      required
+                    />
+                  </VCol>  <VCol cols="6">
+                    <VTextField
+                      v-model="inbound_flight"
+                      label="เที่ยวบินขากลับ"
+                      required
+                    />
                   </VCol>
                 </VRow>
                 <VRow>
                   <VCol cols="12">
-                    <VTextField label="ไฟท์" />
+                    <VTextarea
+                      v-model="guide_name"
+                      label="ไกด์"
+                      rows="3"
+                    />
                   </VCol>
                 </VRow>
                 <VRow>
-                  <VCol cols="6">
-                    <AppDateTimePicker
-                      density="compact"
-                      placeholder="วันเริ่มทริป"
-                      style="width: 100%;"
-                      :config="{ position: 'auto right' }"
+                  <VCol cols="12">
+                    <VTextarea
+                      v-model="hotel"
+                      label="โรงแรม"
+                      rows="3"
                     />
-                  </VCol>
-                  <VCol cols="6">
-                    <AppDateTimePicker
-                      density="compact"
-                      placeholder="วันจบทริป"
-                      style="width: 100%;"
-                      :config="{ position: 'auto right' }"
-                    />
-                  </VCol>
-                </VRow>
-              </VCol>
-            </VRow>
-            <VDivider />
-            <VRow class="mx-5">
-              <VCol cols="12">
-                <h2 class="text-lg font-medium mb-5">
-                  ข้อมูลโรงแรม
-                </h2>
-                <VRow
-                  v-for="(hotel, index) in hotels"
-                  :key="index"
-                  class="pa-3 my-3 hotel"
-                >
-                  <VCol>
-                    <VRow>
-                      <VCol cols="12">
-                        <VTextField label="โรงแรม" />
-                      </VCol>
-                    </VRow>
-                    <VRow>
-                      <VCol cols="6">
-                        <AppDateTimePicker
-                          density="compact"
-                          placeholder="วันที่จอง"
-                          style="width: 100%;"
-                          :config="{ position: 'auto right' }"
-                        />
-                      </VCol>
-                      <VCol cols="6">
-                        <AppDateTimePicker
-                          density="compact"
-                          placeholder="วันที่ออก"
-                          style="width: 100%;"
-                          :config="{ position: 'auto right' }"
-                        />
-                      </VCol>
-                    </VRow>
-                    <VRow>
-                      <VCol cols="12">
-                        <VTextarea
-                          label="ไกด์"
-                          rows="3"
-                        />
-                      </VCol>
-                    </VRow>
-                  </VCol>
-                </VRow>
-                <VRow class="ml-0 mb-3">
-                  <VCol>
-                    <VBtn
-                      class="text-center"
-                      color="primary"
-                      @click="addHotel"
-                    >
-                      add Hotel
-                    </VBtn>
-                  </VCol>
-                </VRow>
-              </VCol>
-            </VRow>
-            <VDivider />
-            <VRow class="mx-5">
-              <VCol cols="12">
-                <h2 class="text-lg font-medium my-5">
-                  ข้อมูลลูกค้า
-                </h2>
-                <VRow
-                  v-for="(customer, index) in customers"
-                  :key="index"
-                  class="pa-3 my-3 customer"
-                >
-                  <VCol>
-                    <VRow>
-                      <VCol cols="2">
-                        <VSelect
-                          v-model="thNameType"
-                          :items="thNameTypes"
-                          label="คำนำหน้าชื่อ"
-                        />
-                      </VCol>
-                      <VCol cols="10">
-                        <VTextField label="ชื่อนามสกุล" />
-                      </VCol>
-                    </VRow>
-                    <VRow>
-                      <VCol cols="2" />
-                      <VCol cols="10">
-                        <VTextField label="ชื่อภาษาอังกฤษ" />
-                      </VCol>
-                    </VRow>
-                    <VRow>
-                      <VCol cols="6">
-                        <VTextField label="วันเดือนปีเกิด" />
-                      </VCol>
-                      <VCol cols="6">
-                        <VTextField label="สถานที่เกิด" />
-                      </VCol>
-                    </VRow>
-                    <VRow>
-                      <VCol cols="12">
-                        <VTextField label="หมายเลขพาสปอร์ต" />
-                      </VCol>
-                    </VRow>
-                    <VRow>
-                      <VCol cols="6">
-                        <AppDateTimePicker
-                          density="compact"
-                          placeholder="วันที่ออก"
-                          style="width: 100%;"
-                          :config="{ position: 'auto right' }"
-                        />
-                      </VCol>
-                      <VCol cols="6">
-                        <AppDateTimePicker
-                          density="compact"
-                          placeholder="วันที่หมด"
-                          style="width: 100%;"
-                          :config="{ position: 'auto right' }"
-                        />
-                      </VCol>
-                    </VRow>
-                    <VRow>
-                      <VCol cols="12">
-                        <VTextField label="ห้อง" />
-                      </VCol>
-                    </VRow>
-                    <VRow>
-                      <VCol cols="12">
-                        <VTextarea
-                          label="หมายเหตุ"
-                          rows="3"
-                        />
-                      </VCol>
-                    </VRow>
-                  </VCol>
-                </VRow>
-                <VRow class="ml-0">
-                  <VCol>
-                    <VBtn
-                      class="text-center"
-                      color="primary"
-                      @click="addCustomer"
-                    >
-                      add Customer
-                    </VBtn>
                   </VCol>
                 </VRow>
               </VCol>
             </VRow>
             <VRow
-              class="ma-3 text-center"
+              class=" mb-3 text-center"
               justify="center"
             >
               <VCol>
                 <VBtn
-                  class="mt-5 text-center"
+                  :disabled="!trip_name || !start_date || !end_date"
+                  type="submit"
+                  class=" text-center"
                   color="primary"
                 >
-                  Submit
+                  ถัดไป
                 </VBtn>
               </VCol>
             </VRow>
@@ -206,30 +158,7 @@
   </section>
 </template>
 
-<script>
-export default {
-  // eslint-disable-next-line vue/component-api-style
-  data() {
-    return {
-      thNameType: "คำนำหน้าชื่อ",
-      enNameType: "คำนำหน้าชื่อ",
-      thNameTypes: ["นาย", "นาง", "นางสาว"],
-      enNameTypes: ["Mr", "Miss","Mrs","Ms"],
-      customers: [{}],
-      hotels: [{}],
-    }
-  },
-  // eslint-disable-next-line vue/component-api-style
-  methods: {
-    addCustomer() {
-      this.customers.push({})
-    },
-    addHotel() {
-      this.hotels.push({})
-    },
-  },
-}
-</script>
+
 
 <style scoped>
 .customer,

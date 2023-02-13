@@ -91,5 +91,6 @@
             }
         ]
     },
-    "nuxt.isNuxtApp": false
+    "nuxt.isNuxtApp": false,
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

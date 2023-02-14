@@ -36,7 +36,6 @@ const addItem = () => {
 }
 
 const removeProduct = id => {
-
   // eslint-disable-next-line vue/no-mutating-props
   props.data.purchasedProducts.splice(id, 1)
 }

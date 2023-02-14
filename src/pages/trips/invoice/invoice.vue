@@ -1,9 +1,13 @@
 <script setup>
 const printInvoice = () => {
   window.print();
+<<<<<<< Updated upstream
 };
 
 const dividers = "___________";
+=======
+}
+>>>>>>> Stashed changes
 </script>
 
 <template>

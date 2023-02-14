@@ -354,9 +354,9 @@ export default {
       console.log(this.items);
     },
     removeProduct(id) {
-      this.items.splice(id, 1);
-      console.log(id);
-      console.log(this.items);
+      this.items.splice(id, 1)
+      console.log(id)
+      console.log(this.items)
     },
   },
 };

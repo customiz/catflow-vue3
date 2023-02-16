@@ -1,6 +1,12 @@
 <script>
+import CustomerTrip from '@/pages/trips/form-customer.vue'
+
+
 export default {
   // eslint-disable-next-line vue/component-api-style
+  components: {
+    CustomerTrip,
+  },
   data() {
     return {
       trip_name: "",
@@ -43,18 +49,18 @@ export default {
         ).then(response => response.json())
           .then(data => {
             console.info("trip data : ", data)
-            console.debug(data)
+            console.debug(data.id)
 
-            const id = data.id
+            const id = data.data.id
 
             this.$router.push({ name: 'CustomerTrip', params: { id } })
+
           })
 
       } catch (error) {
         console.error(error)
       }
     },
-
   },
 }
 </script>

@@ -19,22 +19,25 @@ export default {
           passport_end: "",
           room: "",
           note: "",
+          trips:this.$route.params.id,
         },
+        
       ],
       thNameTypes: ["นาย", "นาง", "นางสาว"],
+      trips: [],
     }
   },
   // eslint-disable-next-line vue/component-api-style
-  computed:{
-    isFormValid(){
-      return this.customers.every(customer => (
-        customer.fname &&
-        customer.lname &&
-        customer.birthdate &&
-        passport_start &&
-        passport_end
-
-      ))
+  computed: {
+    isFormValid() {
+      return this.customers.every(
+        customer =>
+          customer.fname &&
+          customer.lname &&
+          customer.birthdate &&
+          customer.passport_start &&
+          customer.passport_end,
+      )
     },
   },
   // eslint-disable-next-line vue/component-api-style
@@ -57,14 +60,33 @@ export default {
         passport_end: "",
         room: "",
         note: "",
+        trips:this.$route.params.id,
       })
+    },
+    async fetchData() {
+      try {
+        const id = this.$route.params.id
+
+        const response = await fetch(
+          `http://strapiapi.catflows.com/api/trips/${id}`,
+        )
+
+        const trip = await response.json()
+
+        console.log("trip_id : ", id)
+        this.trips = [trip]
+        console.log(trip)
+        console.info("trip", trip)
+        console.debug(trip)
+      } catch (error) {
+        console.error(error)
+      }
     },
     async createCustomer() {
       for (const element of this.customers) {
-        let cus = { 
+        let cus = {
           data: Object.assign(
-            { 
-              trip_id: this.idTrip.id,
+            {
               prefix: element.prefix || "",
               en_fname: element.en_fname || "",
               en_lname: element.en_lname || "",
@@ -72,11 +94,13 @@ export default {
               passport_name: element.passport_name || "",
               room: element.room || "",
               note: element.note || "",
-            }, 
+            },
             element,
-          ), 
+          ),
         }
+
         console.log(JSON.stringify(cus))
+
         try {
           const response = await fetch(
             "http://strapiapi.catflows.com/api/customers",
@@ -90,7 +114,7 @@ export default {
               },
               body: JSON.stringify({
                 data: {
-                  trip_id: this.idTrip.id,
+                  trip_id: this.$route.params.id,
                   prefix: element.prefix,
                   fname: element.fname,
                   lname: element.lname,
@@ -105,8 +129,8 @@ export default {
                   note: element.note,
                 },
               }),
-              
-            },console.log(this.trip_id),
+            },
+            console.log("trip_id : ", this.trip_id),
           )
 
           const data = await response.json()
@@ -117,21 +141,6 @@ export default {
         } catch (error) {
           console.error(error)
         }
-      }
-    },
-    async fetchData() {
-      try {
-        const id = this.$route.params.id
-        const response = await fetch(`http://strapiapi.catflows.com/api/trips/${id}`)
-        const trip = await response.json()
-
-        this.trips = [trip]
-        console.log(trip)
-        console.info("trip", trip)
-        console.debug(trip)
-
-      } catch (error) {
-        console.error(error)
       }
     },
   },
@@ -146,34 +155,48 @@ export default {
           <VRow>
             <VCol>
               <h2 class="text-lg font-medium mt-5 text-center">
-                ข้อมูลทริป {{ idTrip.id }}
+                ข้อมูลทริป
               </h2>
             </VCol>
           </VRow>
-          <VRow class="mx-5">
-            <VCol cols="6">
-              <p><span class="font-weight-bold">โปรแกรม : </span>{{ trip.attributes.trip_name }}</p>
-            </VCol>
-            <VCol cols="6">
-              <p><span class="font-weight-bold">โรงแรม : </span>{{ latestTrip.hotel }}</p>
-            </VCol>
-          </VRow>
-          <VRow class="mx-5">
-            <VCol cols="6">
-              <p><span class="font-weight-bold">วันเริ่มทริป : </span>{{ latestTrip.start_date }}</p>
-            </VCol>
-            <VCol cols="6">
-              <p><span class="font-weight-bold">วันจบทริป : </span>{{ latestTrip.end_date }}</p>
-            </VCol>
-          </VRow>
-          <VRow class="mx-5">
-            <VCol cols="6">
-              <p><span class="font-weight-bold">เที่ยวบินขาไป : </span>{{ latestTrip.outbound_flight }}</p>
-            </VCol>
-            <VCol cols="6">
-              <p><span class="font-weight-bold">เที่ยวบินขากลับ : </span>{{ latestTrip.inbound_flight }}</p>
-            </VCol>
-          </VRow>
+          <p v-if="trips[0]">
+            <VRow class="mx-5">
+              <VCol cols="6">
+                <p>
+                  <span class="font-weight-bold">โปรแกรม : </span>{{ trips[0].data.attributes.trip_name }}
+                </p>
+              </VCol>
+              <VCol cols="6">
+                <p>
+                  <span class="font-weight-bold">โรงแรม : </span>{{ trips[0].data.attributes.hotel }}
+                </p>
+              </VCol>
+            </VRow>
+            <VRow class="mx-5">
+              <VCol cols="6">
+                <p>
+                  <span class="font-weight-bold">วันเริ่มทริป : </span>{{ trips[0].data.attributes.start_date }}
+                </p>
+              </VCol>
+              <VCol cols="6">
+                <p>
+                  <span class="font-weight-bold">วันจบทริป : </span>{{ trips[0].data.attributes.end_date }}
+                </p>
+              </VCol>
+            </VRow>
+            <VRow class="mx-5">
+              <VCol cols="6">
+                <p>
+                  <span class="font-weight-bold">เที่ยวบินขาไป : </span>{{ trips[0].data.attributes.outbound_flight }}
+                </p>
+              </VCol>
+              <VCol cols="6">
+                <p>
+                  <span class="font-weight-bold">เที่ยวบินขากลับ : </span>{{ trips[0].data.attributes.inbound_flight }}
+                </p>
+              </VCol>
+            </VRow>
+          </p>
           <VDivider class="mt-6" />
           <VForm @submit.prevent="createCustomer">
             <VRow class="mx-5">
@@ -289,6 +312,14 @@ export default {
                         />
                       </VCol>
                     </VRow>
+                    <VRow>
+                      <VCol cols="12">
+                        <VTextField
+                          v-model="customer.trips"
+                          label="trips"
+                        />
+                      </VCol>
+                    </VRow>
                   </VCol>
                 </VRow>
                 <VRow style="margin-left: 0;">
@@ -311,7 +342,7 @@ export default {
               <VCol>
                 <VBtn
                   class="text-center"
-                  style=" margin-left: 4px;"
+                  style="margin-left: 4px;"
                   color="secondary"
                   to="form-trip"
                 >
@@ -321,7 +352,7 @@ export default {
                   :disabled="!isFormValid"
                   type="submit"
                   class="text-center"
-                  style=" margin-left: 4px;"
+                  style="margin-left: 4px;"
                   color="primary"
                 >
                   ยืนยัน
